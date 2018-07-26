@@ -1,0 +1,4 @@
+node_modules/
+manifests/
+yarn-*.log
+validation_data.json
