@@ -12,6 +12,7 @@ app.post('/manifest', (req, res) => {
     req.files.manifest.mv(`./manifests/${destination}`);
 
     mediaValidation(destination, result => {
+        console.log(`\n------------- ${new Date()} -------------\n`);
         console.log(result);
         fs.writeFileSync(`./manifests/${destination}_validation.txt`, result), 'utf8';
     });
