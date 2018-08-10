@@ -8,12 +8,30 @@
 import Foundation
 
 public struct DebugFunctions {
+    /**
+     Uploads a manifest to a server
+     - Parameters:
+       - manifest: The HLS manifest contents, as a string.
+       - to: The endpoint where the manifest is uploaded to, where it can be validated.
+     */
     public static func upload(manifest: String, to endpoint: String = "http://192.168.1.35:3000/manifest") {
         let url = URL(string: endpoint)!
         let request = try! createRequest(manifest: manifest, url: url)
         
         var response: AutoreleasingUnsafeMutablePointer<URLResponse?>? = nil
         try! NSURLConnection.sendSynchronousRequest(request, returning: response)
+    }
+    
+    /**
+     Uploads a manifest to a server
+     - Parameters:
+       - manifest: The HLS manifest location, as a file URL.
+       - to: The endpoint where the manifest is uploaded to, where it can be validated.
+     */
+    public static func uploadFile(manifest: URL, to endpoint: String = "http://192.168.1.35:3000/manifest") {
+        let manifestContent = try! String(contentsOf: manifest)
+        
+        DebugFunctions.upload(manifest: manifestContent, to: endpoint)
     }
 }
 
